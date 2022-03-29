@@ -9,11 +9,11 @@ $.getJSON(url,function(data){
   var confirmed=[]
   var recovered=[]
   var deaths=[]
-  $.each(data.    ,function(id,obj){
-    dates.push(obj.date)
-    confirmed.push(obj.confirmed)
-    recovered.push(obj.recovered)
-    deaths.push((obj.deaths)
+  $.each(data.cases_time_series,function(id,obj){
+    date.push(obj.date)
+    confirmed.push(obj.dailyconfirmed)
+    recovered.push(obj.dailyrecovered)
+    deaths.push((obj.dailydeaths)
   })
   date.shift()
   confirmed.shift()
@@ -21,15 +21,15 @@ $.getJSON(url,function(data){
   deaths.shift()
   
   
-  toatl_active=data.
-  toatl_recovered=data.
-  total_deaths=data.
-  total_confirmed=data.
+
+  daily_recovered=data.cases_time_series[0].dailyrecovered
+  daily_deaths=data.cases_time_series[0].dailydeaths
+  daily_confirmed=data.cases_time_series[0].dailyconfirmed
   
-  $("#active").append(total_active)
-  $("#confirmed").append(total_confirmed)
-  $("#recovered").append(total_recovered
-  $("#deaths").append(total_deaths)
+  
+  $("#confirmed").append(daily_confirmed)
+  $("#recovered").append(daily_recovered
+  $("#deaths").append(daily_deaths)
     
   var mychart= document.getelementById("myChart").getContext("2d")
   
@@ -40,19 +40,19 @@ $.getJSON(url,function(data){
         datasets:[
            {
                 label:"Confirmed Cases"
-                data:confirmed
+                data:daily_confirmed
                 backgrounColor:#ffff00
                 minBarlength:100
            }
            {
                 label:"Recovered"
-                data:recovered
+                data:daily_recovered
                 backgrounColor:#666600
                 minBarlength:100
            }
            {
                 label:"Deceased"
-                data:deaths
+                data:daily_deaths
                 backgrounColor:#ff0000
                 minBarlength:100
            }
